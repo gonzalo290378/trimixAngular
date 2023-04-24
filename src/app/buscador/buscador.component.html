@@ -1,0 +1,74 @@
+<div class="container" fxLayout="column">
+    <div>
+        <h1 class="card-title">Buscador de Personas</h1>
+    </div>
+    
+    <div fxLayout="column">
+
+        <div class="search-bar col-sm-3">
+            <input 
+                type="text" 
+                class="Buscar" 
+                placeholder="Buscar por nombre de persona" 
+                (keyup)="searchTerm$.next($any($event.target).value)"
+                class="form-control"
+                >
+        
+        </div>
+        
+
+          <div class="card border-secondary my-3 mb-3">
+  
+            <div class="card-body text-warning">
+          
+              <div
+                class="alert alert-info"
+                *ngIf="personas.length === 0"
+              >
+              No hay personas en la base de datos con ese nombre
+              </div>
+          
+              <table class="table table-bordered table-striped" *ngIf="listaFiltrada.length !== 0">
+                <thead class="text-primary">
+                    <tr>
+                        <th>#</th>
+                        <th>nombre</th>
+                        <th>apellido</th>
+                        <th>Tipo de Documento</th>
+                        <th>Numero de Documento</th>
+                        <th>Fecha de Nacimiento</th>
+                    </tr>
+                </thead>
+          
+                <tbody>
+                    <tr *ngFor="let persona of listaFiltrada">
+                      <td class="text-primary">
+                        
+          
+                      </td>
+                        <td>{{persona.perNombre}}</td>
+                        <td>{{persona.perApellido}}</td>
+                        <td>{{persona.tipoDocumento.tipo}}</td>
+                        <td>{{persona.perNumeroDocumento}}</td>
+                        <td>{{persona.perFechaNacimiento | date: 'dd/MM/yyyy'}}</td>
+                    
+                    </tr>
+                </tbody>
+              </table>
+          
+            </div>
+          </div>
+          
+          
+    
+
+    </div>
+
+    <!-- <div>
+        <pre>{{ personasSeleccionadas | json }}</pre>
+    </div> -->
+
+</div>
+
+
+

@@ -1,0 +1,151 @@
+<div class="container">
+    <div class="card bg-dark text-white">
+        <div class="card-header">{{titulo}}</div>
+        <div class="card-body">
+    
+            <form
+                [formGroup]="miFormulario"
+            
+            >
+                <!-- Nombre -->
+                <div class="form-group row my-3">
+                    <label for="perNombre" class="col-form-label col-sm-2">Nombre</label>
+                    <div class="col-sm-6">
+                        <input 
+                            type="text" 
+                            class="form-control"
+                            formControlName="perNombre"
+                        >
+    
+                        <span
+                            *ngIf="campoNoValido('perNombre')"
+                        >
+                        El campo nombre debe contener al menos 3 caracteres.
+                        </span>
+    
+    
+                    </div>
+                </div>
+    
+                 <!-- Apellido -->
+                <div class="form-group row my-3">
+                    <label for="perApellido" class="col-form-label col-sm-2">Apellido</label>
+                    <div class="col-sm-6 ">
+                        <input 
+                            type="text" 
+                            class="form-control"
+                            formControlName="perApellido"
+                        > 
+    
+                        <span
+                            *ngIf="campoNoValido('perApellido')"
+                        >
+                        El campo apellido debe contener al menos 3 caracteres.
+                        </span>
+                    </div>
+                </div>
+    
+                <!-- Numero de Documento -->
+                <div class="form-group row my-3">
+                    <label for="perNumeroDocumento" class="col-form-label col-sm-2">Numero de Documento</label>
+                    <div class="col-sm-6 ">
+                        <input 
+                            type="text" 
+                            class="form-control"
+                            formControlName="perNumeroDocumento"
+                        >
+    
+                        <span
+                            *ngIf="campoNoValido('perNumeroDocumento')"
+                        >
+                        El campo numero de documento deben ser al menos 7 numeros
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Tipos de Documento -->
+                <div class="form-group row my-3">
+                    <label for="tipoDocumento" class="col-form-label col-sm-2">Tipo de documento</label>
+                    <div class="col-sm-6 ">
+                        
+                        <select 
+                            matInput 
+                            class="form-control" 
+                            formControlName="tipoDocumento" 
+                            style="width: 80%;"
+                            [compareWith]="compararTipoDocumento"
+                            [ngModel]="persona.tipoDocumento"
+                        >
+                        <option 
+                            *ngFor="let tipoDocumento of tipoDocumentos" 
+                            [ngValue]="tipoDocumento"
+                        
+                            >{{tipoDocumento.tipo}}</option>
+                        </select>
+                        <span>
+                        
+                        </span>
+                    </div>
+                </div>
+    
+                <!-- Fecha Nacimiento-->
+                <div class="form-group row my-3">
+                    <label for="perFechaNacimiento" class="col-form-label col-sm-2">Fecha Nacimiento</label>
+                    <div class="col-sm-6 ">
+                        
+                        <input 
+                            matInput 
+                            [matDatepicker]="picker" 
+                            class="form-control" 
+                            formControlName="perFechaNacimiento" 
+                            style="display: inline; width: 80%;"
+                        >
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+    
+                        <span
+                            *ngIf="campoNoValido('perFechaNacimiento')"
+                        >
+                        El campo fecha de nacimiento debe tener un formato valido.
+                        </span>
+                    </div>
+                </div>
+    
+    
+                <!-- Boton crear y editar-->
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <button
+                            class="btn btn-primary"
+                            type="button"
+                            type="submit"
+                            (click)="create()"
+                            *ngIf="!persona.perId else elseBlock"
+                            [disabled]="miFormulario.invalid"
+    
+                        >
+                        Crear
+                        </button>
+                    </div>
+                    <ng-template #elseBlock >
+                        <button
+                            class="btn btn-primary"
+                            type="button"
+                            type="submit"
+                            (click)="update()"
+                            [disabled]="miFormulario.invalid"
+                        >
+                        Editar
+                        </button>
+                    </ng-template>
+                    
+    
+                </div>
+    
+            </form>
+    
+        </div>
+    
+    </div>
+    </div>
+    
